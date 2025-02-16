@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Color Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Real-Time Color Detection</h1>
+        <label for="colors">Select a color to detect:</label>
+        <select id="colors">
+            {% for color in colors %}
+            <option value="{{ color }}">{{ color.capitalize() }}</option>
+            {% endfor %}
+        </select>
+        <div class="video-container">
+            <img src="{{ url_for('video_feed') }}" class="video-feed">
+        </div>
+    </div>
+    <script>
+        document.getElementById('colors').addEventListener('change', function() {
+            const color = this.value;
+            fetch(`/select_color/${color}`);
+        });
+    </script>
+</body>
+</html>
